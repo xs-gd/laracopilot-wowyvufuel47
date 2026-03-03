@@ -10,25 +10,13 @@ return new class extends Migration
     {
         Schema::create('librarians', function (Blueprint $table) {
             $table->id();
+            $table->string('employee_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('employee_id')->unique();
-            $table->string('department');
-            $table->string('specialization')->nullable();
             $table->string('phone')->nullable();
-            $table->date('hire_date');
+            $table->string('department')->nullable();
             $table->boolean('active')->default(true);
-            $table->enum('role', [
-                'librarian',
-                'senior_librarian',
-                'department_head',
-                'reference_specialist',
-                'cataloger',
-                'systems_librarian',
-                'archivist',
-                'trainee'
-            ])->default('librarian');
-            $table->text('role_notes')->nullable();
+            $table->date('hire_date');
             $table->timestamps();
         });
     }

@@ -23,20 +23,21 @@ class AdminAuthController extends Controller
         ]);
 
         $credentials = [
-            'admin@biblioteca.edu'   => 'admin123',
-            'manager@biblioteca.edu' => 'manager123',
+            'admin@library.com'   => 'admin123',
+            'manager@library.com' => 'manager123',
+            'staff@library.com'   => 'staff123',
         ];
 
         if (isset($credentials[$request->email]) && $credentials[$request->email] === $request->password) {
             session([
                 'admin_logged_in' => true,
-                'admin_user'      => explode('@', $request->email)[0],
+                'admin_user'      => ucfirst(explode('@', $request->email)[0]),
                 'admin_email'     => $request->email,
             ]);
             return redirect()->route('admin.dashboard');
         }
 
-        return back()->withErrors(['email' => 'Credenziali non valide. Riprova.'])->withInput();
+        return back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
     }
 
     public function logout()

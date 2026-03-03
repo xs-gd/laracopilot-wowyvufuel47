@@ -14,48 +14,23 @@ class DashboardController extends Controller
             return redirect()->route('admin.login');
         }
 
-        $totalLibrarians      = Librarian::count();
-        $activeLibrarians     = Librarian::where('active', true)->count();
-        $totalTransactions    = ReferenceTransaction::count();
-        $pendingTransactions  = ReferenceTransaction::where('status', 'pending')->count();
-        $closedTransactions   = ReferenceTransaction::where('status', 'closed')->count();
-        $inProgressTransactions = ReferenceTransaction::where('status', 'in_progress')->count();
-
-        $transactionsByChannel = ReferenceTransaction::selectRaw('channel, count(*) as total')
-            ->groupBy('channel')
-            ->orderByDesc('total')
+        $totalLibrarians       = Librarian::count();
+        $totalTransactions     = ReferenceTransaction::count();
+        $recentTransactions    = ReferenceTransaction::with('librarian')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
             ->get();
-
-        $transactionsByType = ReferenceTransaction::selectRaw('transaction_type, count(*) as total')
-            ->groupBy('transaction_type')
-            ->orderByDesc('total')
-            ->get();
-
-        $recentTransactions = ReferenceTransaction::with('librarian')
-            ->orderByDesc('transaction_date')
-            ->orderByDesc('transaction_time')
-            ->limit(8)
-            ->get();
-
-        $avgDuration = ReferenceTransaction::whereNotNull('duration_minutes')->avg('duration_minutes');
-
-        $transactionsByComplexity = ReferenceTransaction::selectRaw('complexity_level, count(*) as total')
-            ->groupBy('complexity_level')
-            ->get()
-            ->keyBy('complexity_level');
+        $activeLibrarians      = Librarian::where('active', true)->count();
+        $todayTransactions     = ReferenceTransaction::whereDate('created_at', today())->count();
+        $latestLibrarians      = Librarian::orderBy('created_at', 'desc')->limit(5)->get();
 
         return view('admin.dashboard', compact(
             'totalLibrarians',
-            'activeLibrarians',
             'totalTransactions',
-            'pendingTransactions',
-            'closedTransactions',
-            'inProgressTransactions',
-            'transactionsByChannel',
-            'transactionsByType',
             'recentTransactions',
-            'avgDuration',
-            'transactionsByComplexity'
+            'activeLibrarians',
+            'todayTransactions',
+            'latestLibrarians'
         ));
     }
 }

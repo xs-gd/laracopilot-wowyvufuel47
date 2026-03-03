@@ -12,76 +12,33 @@ class ReferenceTransactionSeeder extends Seeder
     {
         $librarianIds = Librarian::pluck('id')->toArray();
 
-        $patronTypes      = ['Studente Triennale', 'Studente Magistrale', 'Dottorando', 'Docente', 'Ricercatore', 'Personale Tecnico-Amministrativo', 'Utente Esterno', 'Visiting Scholar'];
-        $channels         = ['in_person', 'phone', 'email', 'chat', 'virtual'];
-        $transactionTypes = ['ready_reference', 'research', 'directional', 'instructional', 'reader_advisory', 'technical'];
-        $subjects         = ['Biologia Molecolare', 'Storia Medievale', 'Diritto Civile', 'Matematica Applicata', 'Letteratura Italiana', 'Economia Politica', 'Ingegneria del Software', 'Chimica Organica', 'Filosofia Contemporanea', 'Sociologia', 'Psicologia Cognitiva', 'Fisica Quantistica', 'Archeologia Classica', 'Diritto Penale', 'Nutrizione e Dietetica'];
-        $resources        = ['PubMed, Web of Science', 'JSTOR, Google Scholar', 'Catalogo OPAC, SBN', 'LexisNexis, DeJure', 'IEEE Xplore, ACM Digital Library', 'Scopus, Emerald', 'Archivio Storico Universitario', 'Banche dati in abbonamento'];
-        $statuses         = ['pending', 'in_progress', 'closed', 'closed', 'closed', 'referred'];
-        $complexities     = ['simple', 'simple', 'moderate', 'complex'];
-        $questions        = [
-            'Come posso trovare articoli scientifici sulla biologia molecolare degli ultimi 5 anni?',
-            'Ho bisogno di fonti primarie sulla storia medievale italiana.',
-            'Dove posso accedere alle banche dati giuridiche per la mia tesi di laurea?',
-            'Cerco manuali di matematica applicata per il corso di laurea magistrale.',
-            'Quali risorse digitali sono disponibili per la letteratura italiana del Novecento?',
-            'Come si accede alle riviste di economia in abbonamento?',
-            'Ho bisogno di aiuto per trovare articoli di informatica su machine learning.',
-            'Dove trovo i testi classici di chimica organica disponibili in biblioteca?',
-            'Cerco materiale per la mia ricerca in filosofia contemporanea.',
-            'Quali banche dati sociologiche sono disponibili per i ricercatori?',
-            'Come posso scaricare articoli da PubMed attraverso la biblioteca?',
-            'Ho bisogno di informazioni sui brevetti nel campo della fisica applicata.',
-            'Dove sono conservati i manoscritti storici dell archivio universitario?',
-            'Cerco testi di diritto penale comparato internazionale.',
-            'Quali riviste di nutrizione clinica sono accessibili online?',
-            'Come si usa il catalogo OPAC per trovare libri prestati?',
-            'Ho bisogno di supporto per la ricerca bibliografica della mia tesi dottorale.',
-            'Quali sono le banche dati disponibili per psicologia cognitiva?',
-            'Come posso accedere agli archivi storici digitali della biblioteca?',
-            'Cerco documentazione tecnica su reti neurali e intelligenza artificiale.',
-        ];
-        $responses = [
-            'Ho illustrato le principali banche dati disponibili e le modalita di accesso.',
-            'Ho fornito indicazioni sulle fonti primarie disponibili in archivio.',
-            'Ho guidato il ricercatore nelle banche dati giuridiche in abbonamento.',
-            'Ho mostrato come cercare manuali nel catalogo e nelle risorse digitali.',
-            'Ho indicato le raccolte digitali disponibili e i percorsi di ricerca.',
-            'Ho spiegato le procedure di accesso alle riviste elettroniche.',
-            'Ho illustrato come utilizzare IEEE Xplore e ACM Digital Library.',
-            'Ho aiutato nella ricerca dei testi nel catalogo fisico e digitale.',
-            'Ho fornito una lista di riviste e banche dati di filosofia disponibili.',
-            'Ho mostrato le risorse sociologiche disponibili e le modalita di ricerca.',
+        $transactions = [
+            ['patron_name' => 'Alice Brown',      'question' => 'Where is the restroom?',                                         'answer' => 'Second floor, turn left at the elevator.',                        'type' => 'directional',     'duration' => 1,  'notes' => ''],
+            ['patron_name' => 'Bob Martinez',     'question' => 'How do I find peer-reviewed articles on climate change?',         'answer' => 'Use JSTOR or EBSCOhost databases available on our website.',      'type' => 'research',        'duration' => 15, 'notes' => 'Showed patron database navigation'],
+            ['patron_name' => 'Carol White',      'question' => 'Do you have books by Toni Morrison?',                            'answer' => 'Yes, found 12 titles in our catalog.',                           'type' => 'informational',   'duration' => 5,  'notes' => ''],
+            ['patron_name' => 'Daniel Lee',       'question' => 'Can you recommend a good mystery novel?',                        'answer' => 'Recommended Gone Girl and The Girl with the Dragon Tattoo.',      'type' => 'reader_advisory', 'duration' => 10, 'notes' => 'Patron enjoyed psychological thrillers'],
+            ['patron_name' => 'Eva Johnson',      'question' => 'How do I print from my laptop?',                                 'answer' => 'Connect to LibraryPrint WiFi and use the print portal.',          'type' => 'technology',      'duration' => 8,  'notes' => 'Assisted with driver installation'],
+            ['patron_name' => 'Frank Garcia',     'question' => 'What are the library hours on holidays?',                        'answer' => 'Provided printed holiday schedule.',                              'type' => 'informational',   'duration' => 2,  'notes' => ''],
+            ['patron_name' => 'Grace Kim',        'question' => 'I need help finding genealogy records for my family.',           'answer' => 'Introduced Ancestry.com and local census microfilm collection.',  'type' => 'research',        'duration' => 30, 'notes' => 'Very engaged patron, will return'],
+            ['patron_name' => 'Henry Turner',     'question' => 'Where is the periodicals section?',                              'answer' => 'Ground floor, east wing near the windows.',                      'type' => 'directional',     'duration' => 1,  'notes' => ''],
+            ['patron_name' => 'Irene Scott',      'question' => 'Can I access the New York Times archive?',                       'answer' => 'Yes, through ProQuest Historical Newspapers with library card.', 'type' => 'informational',   'duration' => 6,  'notes' => ''],
+            ['patron_name' => 'Jack Robinson',    'question' => 'Help me understand how to use the self-checkout machine.',       'answer' => 'Walked patron through the process step by step.',                 'type' => 'technology',      'duration' => 5,  'notes' => ''],
+            ['patron_name' => 'Karen Young',      'question' => 'What books do you recommend for learning Python?',               'answer' => 'Recommended Automate the Boring Stuff and Python Crash Course.',  'type' => 'reader_advisory', 'duration' => 12, 'notes' => 'Patron is a beginner programmer'],
+            ['patron_name' => 'Leo Anderson',     'question' => 'I need statistics on US immigration for a research paper.',     'answer' => 'Directed to Census Bureau data and ProQuest Statistical.',       'type' => 'research',        'duration' => 20, 'notes' => 'College student writing thesis'],
+            ['patron_name' => 'Maria Lopez',      'question' => 'Do you have audiobooks in Spanish?',                            'answer' => 'Yes, available through Libby app with library card.',            'type' => 'informational',   'duration' => 7,  'notes' => ''],
+            ['patron_name' => 'Nathan Clark',     'question' => 'How do I renew my library card?',                               'answer' => 'Can be done online or at the circulation desk with ID.',          'type' => 'informational',   'duration' => 3,  'notes' => ''],
+            ['patron_name' => 'Olivia Hall',      'question' => 'Where can I find a quiet study room?',                          'answer' => 'Rooms 204 and 206 on the second floor, reserve at front desk.',   'type' => 'directional',     'duration' => 2,  'notes' => ''],
+            ['patron_name' => 'Peter Walker',     'question' => 'Can you help me cite sources in APA format?',                   'answer' => 'Provided APA citation guide and demonstrated Purdue OWL.',       'type' => 'research',        'duration' => 18, 'notes' => 'High school student'],
+            ['patron_name' => 'Quinn Harris',     'question' => 'Do you have large print books for seniors?',                   'answer' => 'Yes, dedicated large print section on ground floor.',            'type' => 'informational',   'duration' => 4,  'notes' => ''],
+            ['patron_name' => 'Rosa Martinez',    'question' => 'I cannot connect to the library WiFi.',                         'answer' => 'Reset patron device network settings, connection resolved.',      'type' => 'technology',      'duration' => 10, 'notes' => 'iPhone connectivity issue'],
+            ['patron_name' => 'Samuel Davis',     'question' => 'What good sci-fi books came out this year?',                    'answer' => 'Recommended Project Hail Mary and Piranesi.',                    'type' => 'reader_advisory', 'duration' => 8,  'notes' => ''],
+            ['patron_name' => 'Teresa Wilson',    'question' => 'How do I access e-books from home?',                            'answer' => 'Explained OverDrive and Libby app setup process.',               'type' => 'technology',      'duration' => 15, 'notes' => 'Patron is elderly, needed extra patience'],
         ];
 
-        $transactions = [];
-        $dates = [];
-        for ($i = 0; $i < 150; $i++) {
-            $daysAgo = rand(0, 730);
-            $dates[] = date('Y-m-d', strtotime("-{$daysAgo} days"));
-        }
-
-        $times = ['08:30:00','09:00:00','09:30:00','10:00:00','10:30:00','11:00:00','11:30:00','12:00:00','14:00:00','14:30:00','15:00:00','15:30:00','16:00:00','16:30:00','17:00:00'];
-
-        for ($i = 0; $i < 150; $i++) {
-            ReferenceTransaction::create([
-                'transaction_date'   => $dates[$i],
-                'transaction_time'   => $times[array_rand($times)],
-                'librarian_id'       => $librarianIds[array_rand($librarianIds)],
-                'patron_type'        => $patronTypes[array_rand($patronTypes)],
-                'channel'            => $channels[array_rand($channels)],
-                'transaction_type'   => $transactionTypes[array_rand($transactionTypes)],
-                'subject_area'       => $subjects[array_rand($subjects)],
-                'question_summary'   => $questions[array_rand($questions)],
-                'response_summary'   => rand(0, 3) > 0 ? $responses[array_rand($responses)] : null,
-                'resources_used'     => rand(0, 3) > 0 ? $resources[array_rand($resources)] : null,
-                'duration_minutes'   => rand(0, 10) > 1 ? rand(5, 120) : null,
-                'status'             => $statuses[array_rand($statuses)],
-                'complexity_level'   => $complexities[array_rand($complexities)],
-                'follow_up_required' => rand(0, 4) === 0,
-                'notes'              => rand(0, 3) === 0 ? 'Utente soddisfatto del servizio ricevuto.' : null,
-                'recorded_by'        => 'Administrator',
-            ]);
+        foreach ($transactions as $index => $data) {
+            ReferenceTransaction::create(array_merge($data, [
+                'librarian_id' => $librarianIds[$index % count($librarianIds)],
+            ]));
         }
     }
 }
